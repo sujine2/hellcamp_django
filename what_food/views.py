@@ -1,69 +1,26 @@
-from random import randint
-from django.shortcuts import render
-from .models import Food
-# Create your views here.
+from django.shortcuts import render, redirect
 
+from .models import Food
+
+import random
 
 
 def index(request):
     return render(request, 'what_food/post_list.html', {})
 
 
+def food_viewer(request, country):
+    foods = Food.objects.filter(country=country)
+    names, urls = [], []
 
-def w(request):
+    if len(foods) == 0:
+        return redirect('/')
 
-    foods = Food.objects.filter(country='w')
-    foods = foods[randint(0, len(foods) - 1)]
+    for food in foods:
+        names.append(food.name)
+        urls.append(food.picture.url)
 
-    food = Food.objects.filter(country='w')
-    names = []
-    urls = []
-    for i in food:
-        names.append(i.name)
-        urls.append(i.picture.url)
+    food = random.choice(foods)
 
-    return render(request, 'what_food/w_food.html', {'foods': foods, 'names': names, 'urls': urls })
-
-def k(request):
-    foods = Food.objects.filter(country='k')
-    foods = foods[randint(0, len(foods) - 1)]
-
-    food = Food.objects.filter(country='k')
-    names = []
-    urls = []
-    for i in food:
-        names.append(i.name)
-        urls.append(i.picture.url)
-
-    return render(request, 'what_food/w_food.html', {'foods': foods, 'names': names, 'urls': urls})
-
-
-def j(request):
-    foods = Food.objects.filter(country='j')
-    foods = foods[randint(0, len(foods) - 1)]
-
-    food = Food.objects.filter(country='j')
-    names = []
-    urls = []
-    for i in food:
-        names.append(i.name)
-        urls.append(i.picture.url)
-
-    return render(request, 'what_food/w_food.html', {'foods': foods, 'names': names, 'urls': urls})
-
-
-def c(request):
-    foods = Food.objects.filter(country='c')
-    foods = foods[randint(0, len(foods) - 1)]
-
-    food = Food.objects.filter(country='c')
-    names = []
-    urls = []
-    for i in food:
-        names.append(i.name)
-        urls.append(i.picture.url)
-
-    return render(request, 'what_food/w_food.html', {'foods': foods, 'names': names, 'urls': urls})
-
-
+    return render(request, 'what_food/w_food.html', {'foods': food, 'names': names, 'urls': urls })
 
