@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 
+import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
@@ -20,7 +22,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'sbc=ljhd8t1$ohyb(v6r#t3on!iltkp(2c!f_3n74p#rine(*a'
+SECRET_KEY = os.environ.get('SECRET_KEY', os.urandom(60))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -104,9 +106,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -122,3 +124,4 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = BASE_DIR / 'media' # is equal to os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
+
